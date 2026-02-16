@@ -6,24 +6,63 @@ function App() {
 
   //filter state
   const [filter, setFilter] = useState("All");
+  const [newTitle, setNewTitle] = useState("");
+  const [newStatus, setNewStatus] = useState("Backlog");
 
-  //test variable
-  const games = [
+  
+  const [games, setGames] = useState(() => {
+    const savedGames = localStorage.getItem("games");
+    return savedGames ? JSON.parse(savedGames) : [
   { id: 1, title: "Elden Ring", status: "Playing" },
   { id: 2, title: "Cyberpunk 2077", status: "Backlog" },
   { id: 3, title: "Spider-Man 2", status: "Completed" }
-  ];
+    ]
+  });
 
   const filteredGames = filter === "All" ? games :
     games.filter(game => game.status === filter);
 
+  const addGame = () => {
+    if (!newTitle.trim()) return;
+
+    const newGame = {
+      id: Date.now(),
+      title: newTitle,
+      status: newStatus
+    };
+
+    setGames([...games, newGame]);
+    setNewTitle("");
+  };
+
   return (
-    <div className="App">
-      <div>
-        <button onClick={() => setFilter("All")}>All</button>
-        <button onClick={() => setFilter("Playing")}>Playing</button>
-        <button onClick={() => setFilter("Completed")}>Completed</button>
-        <button onClick={() => setFilter("Backlog")}>backlog</button>
+    <div className='App'>
+      <div className='form'>
+        <input type="text" placeholder='Game Title' value={newTitle}
+        onChange={(e) => setNewTitle(e.target.value)} />
+        
+        <select value={newStatus} onChange={(e) => 
+          setNewStatus(e.target.value)}>
+            <option value="Playing">Playing</option>
+            <option value="Completed">Completed</option>
+            <option vlaue="Backlog">Backlog</option>
+        </select>
+
+        <button onClick={addGame}>Add Game</button>
+      </div>
+
+      <div className='buttons'>
+        <button className={filter === "All" ? "active" : ""}
+        onClick={() => setFilter("All")}>All</button>
+
+        <button className={filter === "Playing" ? "active" : ""} 
+        onClick={() => setFilter("Playing")}>Playing</button>
+
+        <button className={filter === "Completed" ? "active" : ""}
+        onClick={() => setFilter("Completed")}>Completed</button>
+
+        <button className={filter === "Backlog" ? "active" : ""}
+        onClick={() => setFilter("Backlog")}>Backlog</button>
       </div>
       
 
