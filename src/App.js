@@ -44,8 +44,8 @@ function App() {
   };
 
   return (
-    <div className='App'>
-      <div className='form'>
+    <div>
+      <div className='add-game-form'>
         <input type="text" placeholder='Game Title' value={newTitle}
         onChange={(e) => setNewTitle(e.target.value)} />
         
@@ -59,7 +59,7 @@ function App() {
         <button onClick={addGame}>Add Game</button>
       </div>
 
-      <div className='buttons'>
+      <div className='filter-buttons'>
         <button className={filter === "All" ? "active" : ""}
         onClick={() => setFilter("All")}>All</button>
 
