@@ -1,23 +1,22 @@
-import logo from './logo.svg';
 import './App.css';
+import GameCard from './GameCard';
+
+
+const games = [
+  { id: 1, title: "Elden Ring", status: "Playing" },
+  { id: 2, title: "Cyberpunk 2077", status: "Backlog" },
+  { id: 3, title: "Spider-Man 2", status: "Completed" }
+]
+  
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {games.map(game => (
+        <GameCard key={game.id} title={game.title} status={game.status} />
+      ))}
+      
     </div>
   );
 }
