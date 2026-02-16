@@ -1,6 +1,6 @@
 import './App.css';
 import GameCard from './GameCard';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
 
@@ -18,6 +18,10 @@ function App() {
   { id: 3, title: "Spider-Man 2", status: "Completed" }
     ]
   });
+
+  useEffect(() => {
+    localStorage.setItem("games", JSON.stringify(games));
+  }, [games]);
 
   const filteredGames = filter === "All" ? games :
     games.filter(game => game.status === filter);
