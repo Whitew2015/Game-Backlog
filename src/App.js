@@ -39,6 +39,10 @@ function App() {
     setNewTitle("");
   };
 
+  const deleteGame = id => {
+    setGames(games.filter(game => game.id !== id));
+  };
+
   return (
     <div className='App'>
       <div className='form'>
@@ -71,7 +75,8 @@ function App() {
       
 
       {filteredGames.map(game => (
-        <GameCard key={game.id} title={game.title} status={game.status} />
+        <GameCard key={game.id} title={game.title} status={game.status}
+        onDelete={() => deleteGame(game.id)} />
       ))}
       
     </div>
